@@ -1,0 +1,60 @@
+<?php return array (
+  0 => 
+  array (
+    'GET' => 
+    array (
+      '/items' => 'getAllItems',
+    ),
+    'POST' => 
+    array (
+      '/items' => 'postItems',
+    ),
+    'PUT' => 
+    array (
+      '/items' => 'putItems',
+    ),
+    'DELETE' => 
+    array (
+      '/items' => 'deleteItems',
+    ),
+  ),
+  1 => 
+  array (
+    'GET' => 
+    array (
+      0 => 
+      array (
+        'regex' => '~^(?|/items/([^/]+))$~',
+        'routeMap' => 
+        array (
+          2 => 
+          array (
+            0 => 'getAllItems',
+            1 => 
+            array (
+              'uuid' => 'uuid',
+            ),
+          ),
+        ),
+      ),
+    ),
+    'PUT' => 
+    array (
+      0 => 
+      array (
+        'regex' => '~^(?|/items/([^/]+))$~',
+        'routeMap' => 
+        array (
+          2 => 
+          array (
+            0 => 'putOneItem',
+            1 => 
+            array (
+              'uuid' => 'uuid',
+            ),
+          ),
+        ),
+      ),
+    ),
+  ),
+);
