@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc9eef1895208b6604d51e3d48109ec3",
+    "content-hash": "860238ec972334e192a53d3124479bca",
     "packages": [
         {
             "name": "nikic/fast-route",
@@ -55,6 +55,42 @@
                 "source": "https://github.com/nikic/FastRoute/tree/master"
             },
             "time": "2018-02-13T20:26:39+00:00"
+        },
+        {
+            "name": "salabun/telegram-bot-notifier",
+            "version": "1.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vladsalabun/TelegramBotNotifier.git",
+                "reference": "d07cccaeafa4161f51bc885a85c91b0975e8ad25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vladsalabun/TelegramBotNotifier/zipball/d07cccaeafa4161f51bc885a85c91b0975e8ad25",
+                "reference": "d07cccaeafa4161f51bc885a85c91b0975e8ad25",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Salabun\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vlad Salabun",
+                    "email": "vlad@salabun.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/vladsalabun/TelegramBotNotifier/issues",
+                "source": "https://github.com/vladsalabun/TelegramBotNotifier/tree/1.11"
+            },
+            "time": "2020-12-19T14:13:10+00:00"
         }
     ],
     "packages-dev": [],

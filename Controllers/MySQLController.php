@@ -22,9 +22,9 @@ class MySQLController
     public $sql = [];
 
 
-    public function __construct()
+    public function __construct($database = null)
     {
-        $this->connect();
+        $this->connect($database);
 	}
 
 }

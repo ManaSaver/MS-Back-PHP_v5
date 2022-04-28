@@ -6,7 +6,7 @@ trait DataParams
 {
     public $pdo = null;
     public $host = '127.0.0.1';
-    public $database = 'items_dev';
+    public $database = 'items_test';
     public $username = "root";
     public $password = "";
 
@@ -14,8 +14,12 @@ trait DataParams
 
     public $errors = [];
 
-    public function connect()
+    public function connect($database = null)
     {
+        if($database != null) {
+            $this->database = $database;
+        }
+
         try {
             $this->pdo = new \PDO(
 				'mysql:host=' . $this->host . ';dbname=' . 

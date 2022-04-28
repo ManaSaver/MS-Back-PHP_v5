@@ -2,6 +2,7 @@
 
 use Controllers\MySQLController;
 use Controllers\ResponseController;
+use Controllers\BackupController;
 
 
 function info($vars)
@@ -19,7 +20,7 @@ function info($vars)
 
 function getAllItems($vars) 
 {
-	$mysql = new MySQLController();
+	$mysql = new MySQLController($_GET['database']);
 	$response = new ResponseController();
 
     $mysql->getBranch(null, true);
@@ -30,7 +31,9 @@ function getAllItems($vars)
 
 function getOneItem($vars)
 {
-    $mysql = new MySQLController();
+    //var_dump($vars, $_GET['database']); die;
+
+    $mysql = new MySQLController($_GET['database']);
     $response = new ResponseController();
 
     $mysql->getSingleItem($vars['uuid']);
@@ -62,7 +65,7 @@ function getOneItem($vars)
 
 function breadCrumbs($vars)
 {
-    $mysql = new MySQLController();
+    $mysql = new MySQLController($_GET['database']);
     $response = new ResponseController();
 
     $mysql->getBreadCrumbs($vars['uuid']);
@@ -75,7 +78,7 @@ function breadCrumbs($vars)
 
 function putOneItem($vars)
 {
-    $mysql = new MySQLController();
+    $mysql = new MySQLController($_GET['database']);
     $response = new ResponseController();
 
     $mysql->getSingleItem($vars['uuid']);
@@ -97,7 +100,7 @@ function putOneItem($vars)
 function postItem($vars)
 {
 
-    $mysql = new MySQLController();
+    $mysql = new MySQLController($_GET['database']);
     $response = new ResponseController();
 
     $mysql->createItem(ResponseController::readRequestData());
@@ -112,7 +115,7 @@ function deleteItems($vars)
 {
     $request = ResponseController::readRequestData();
 
-    $mysql = new MySQLController();
+    $mysql = new MySQLController($_GET['database']);
     $response = new ResponseController();
 
     $mysql->deleteItem($request);
@@ -184,5 +187,10 @@ function putItems($vars)
 	$response->send();
 }
 
+
+function makeBackup($vars)
+{
+    BackupController::makeBackup();
+}
 
 
