@@ -30,8 +30,8 @@ class BackupController
     {
         $this->mysql = new MySQLController();
 
-        //var_dump($this->mysql);
-        var_dump($this->mysql->database);
+        var_dump($this->mysql->database, $_ENV, env('DEBUG'));
+
 
         $this->sqlDump();
         $this->sqlZip();

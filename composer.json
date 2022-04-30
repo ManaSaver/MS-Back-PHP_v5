@@ -1,7 +1,8 @@
 {
     "require": {
         "nikic/fast-route": "^1.3",
-        "salabun/telegram-bot-notifier": "^1.11"
+        "salabun/telegram-bot-notifier": "^1.11",
+        "vlucas/phpdotenv": "^5.4"
     },
 	"autoload": {
 			"psr-4": {

@@ -7,6 +7,12 @@ error_reporting(E_ALL);
 require 'vendor/autoload.php';
 require_once "functions.php";
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+
+
+
 if (!headers_sent()) {
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: *');

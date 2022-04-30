@@ -4,6 +4,40 @@ use Controllers\MySQLController;
 use Controllers\ResponseController;
 use Controllers\BackupController;
 
+function env($key, $default = null)
+{
+    if(!array_key_exists($key, $_ENV)) {
+        return null;
+    }
+
+    $value = $_ENV[$key];
+
+    switch (strtolower($value)) {
+        case 'true':
+        case '(true)':
+            return true;
+
+        case 'false':
+        case '(false)':
+            return false;
+
+        case 'empty':
+        case '(empty)':
+            return '';
+
+        case 'null':
+        case '(null)':
+            return;
+    }
+
+    if (Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
+        return substr($value, 1, -1);
+    }
+
+    return $value;
+}
+
+
 
 function info($vars)
 {
