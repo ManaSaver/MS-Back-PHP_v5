@@ -23,21 +23,21 @@ class BackupController
     public $mysql = null;
     public $dumpDescription = '';
 
-    public static function makeBackup()
+    public static function makeBackup($database = null)
     {
         if ( is_null( self::$instance ) )
         {
-            self::$instance = new self();
+            self::$instance = new self($database);
         }
         return self::$instance;
     }
 
-    public function __construct()
+    public function __construct($database = null)
     {
         $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
         $dotenv->load();
 
-        $this->mysql = new MySQLController();
+        $this->mysql = new MySQLController($database);
 
         $this->sqlDump();
         $this->makedumpDescription();

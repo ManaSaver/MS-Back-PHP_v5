@@ -224,7 +224,7 @@ function putItems($vars)
 
 function makeBackup($vars)
 {
-    BackupController::makeBackup();
+    BackupController::makeBackup($_GET['database']);
 }
 
 
