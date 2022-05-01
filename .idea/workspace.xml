@@ -22,6 +22,11 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/vendor/rah/danpu" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/nelexa/zip" />
     </include_path>
   </component>
   <component name="ProjectId" id="28PCcUxn6p1fjAshwfti2aZ5hc7" />
@@ -46,7 +51,7 @@
       <updated>1651108912288</updated>
       <workItem from="1651108913372" duration="1211000" />
       <workItem from="1651116243173" duration="1394000" />
-      <workItem from="1651359328625" duration="2163000" />
+      <workItem from="1651359328625" duration="8800000" />
     </task>
     <servers />
   </component>

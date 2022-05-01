@@ -14,9 +14,11 @@ use Controllers\MySQLTraits\DeleteItem;
 use Controllers\MySQLTraits\CastItem;
 use Controllers\MySQLTraits\Revisions;
 
+use Controllers\MySQLTraits\ItemsStatistics;
+
 class MySQLController
 {
-    use CreateItem, DataParams, ReadBranch, CastItem, ReadItem, UpdateItem, Revisions, DeleteItem, BreadCrumbs;
+    use CreateItem, DataParams, ReadBranch, CastItem, ReadItem, UpdateItem, Revisions, DeleteItem, BreadCrumbs, ItemsStatistics;
 
     public $result = [];
     public $sql = [];

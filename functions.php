@@ -29,11 +29,11 @@ function env($key, $default = null)
         case '(null)':
             return;
     }
-
+/*
     if (Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
         return substr($value, 1, -1);
     }
-
+*/
     return $value;
 }
 
