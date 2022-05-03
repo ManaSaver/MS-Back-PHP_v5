@@ -31,10 +31,14 @@ trait SearchItems
             $title = '';
         }
 
-// tags: []
+        $tags = '';
+        foreach($requestArray['body']['tags'] as $tag) {
+            $title = " AND JSON_CONTAINS(`tags`, '" . $tag . "', '$')";
+        }
+
         // TODO: запит має бути з PDO:
         $sql = "SELECT * FROM items WHERE uuid IS NOT NULL"
-                    . $type . $description . $src . $title
+                    . $type . $description . $src . $title . $tags
                     . " ORDER BY " . $requestArray['body']['order_by'] . " " . $requestArray['body']['sort']
                     . " LIMIT " . $requestArray['body']['limit']
                     . " OFFSET " . $requestArray['body']['offset'];
