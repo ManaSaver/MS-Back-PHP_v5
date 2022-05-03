@@ -228,3 +228,13 @@ function makeBackup($vars)
 }
 
 
+function searchItems($vars)
+{
+    $mysql = new MySQLController($_GET['database']);
+    $response = new ResponseController();
+
+    $mysql->searchItems(ResponseController::readRequestData());
+
+    $response->handleMySQLResult($mysql);
+    $response->send();
+}

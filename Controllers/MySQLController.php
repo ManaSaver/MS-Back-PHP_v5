@@ -15,10 +15,11 @@ use Controllers\MySQLTraits\CastItem;
 use Controllers\MySQLTraits\Revisions;
 
 use Controllers\MySQLTraits\ItemsStatistics;
+use Controllers\MySQLTraits\SearchItems;
 
 class MySQLController
 {
-    use CreateItem, DataParams, ReadBranch, CastItem, ReadItem, UpdateItem, Revisions, DeleteItem, BreadCrumbs, ItemsStatistics;
+    use CreateItem, DataParams, ReadBranch, CastItem, ReadItem, UpdateItem, Revisions, DeleteItem, BreadCrumbs, ItemsStatistics, SearchItems;
 
     public $result = [];
     public $sql = [];
