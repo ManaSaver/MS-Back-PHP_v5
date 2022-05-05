@@ -20,7 +20,13 @@ trait SearchItems
         }
 
         if(strlen($requestArray['body']['src']) > 0) {
-            $src = " AND src LIKE '%" . $requestArray['body']['src'] . "%'";
+
+            if($requestArray['body']['type'] == 'code') {
+                $src = " AND src = '" . $requestArray['body']['src'] . "'";
+            } else {
+                $src = " AND src LIKE '%" . $requestArray['body']['src'] . "%'";
+            }
+
         } else {
             $src = '';
         }
@@ -31,17 +37,36 @@ trait SearchItems
             $title = '';
         }
 
-        $tags = '';
-        foreach($requestArray['body']['tags'] as $tag) {
-            $title = " AND JSON_CONTAINS(`tags`, '" . $tag . "', '$')";
-        }
 
-        // TODO: запит має бути з PDO:
-        $sql = "SELECT * FROM items WHERE uuid IS NOT NULL"
-                    . $type . $description . $src . $title . $tags
-                    . " ORDER BY " . $requestArray['body']['order_by'] . " " . $requestArray['body']['sort']
-                    . " LIMIT " . $requestArray['body']['limit']
-                    . " OFFSET " . $requestArray['body']['offset'];
+
+
+
+        $tags = '';
+        if(count($requestArray['body']['tags']) > 0) {
+
+            $unionsArray = [];
+
+            foreach($requestArray['body']['tags'] as $tag) {
+
+                $unionsArray[] = "(SELECT * FROM items WHERE uuid IS NOT NULL"
+                    . $type . $description . $src . $title
+                    . " AND JSON_SEARCH(`tags`, 'one', '%". trim($tag) . "%') IS NOT NULL)";
+
+            }
+
+            $sql = implode(' UNION ', $unionsArray)
+                . " ORDER BY " . $requestArray['body']['order_by'] . " " . $requestArray['body']['sort']
+                . " LIMIT " . $requestArray['body']['limit']
+                . " OFFSET " . $requestArray['body']['offset'];
+
+        } else {
+            // TODO: запит має бути з PDO:
+            $sql = "SELECT * FROM items WHERE uuid IS NOT NULL"
+                . $type . $description . $src . $title . $tags
+                . " ORDER BY " . $requestArray['body']['order_by'] . " " . $requestArray['body']['sort']
+                . " LIMIT " . $requestArray['body']['limit']
+                . " OFFSET " . $requestArray['body']['offset'];
+        }
 
         $this->sql[] = $sql;
 
@@ -49,7 +74,9 @@ trait SearchItems
         $stmt->execute();
         $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-
         $this->result[] = $rows;
+
+
+
     }
 }
