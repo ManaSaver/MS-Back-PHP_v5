@@ -22,7 +22,12 @@ trait SearchItems
         if(strlen($requestArray['body']['src']) > 0) {
 
             if($requestArray['body']['type'] == 'code') {
-                $src = " AND src = '" . $requestArray['body']['src'] . "'";
+
+                if($requestArray['body']['src'] == 'any') {
+                    $src = "";
+                } else {
+                    $src = " AND src = '" . $requestArray['body']['src'] . "'";
+                }
             } else {
                 $src = " AND src LIKE '%" . $requestArray['body']['src'] . "%'";
             }
@@ -74,9 +79,9 @@ trait SearchItems
         $stmt->execute();
         $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        $this->result[] = $rows;
-
-
+        foreach($rows as $item) {
+            $this->result[] = $this->castFromDB($item);
+        }
 
     }
 }
