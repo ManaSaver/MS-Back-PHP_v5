@@ -35,6 +35,8 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 
     $r->addRoute('POST', '/search', 'searchItems');
 
+
+    $r->addRoute('POST', '/files', 'uploadFiles');
     // важливо! достатньо одного типу "files" для всього (zip, doc, excel, jpg, png, mp4).
     // Можна по формату автоматично визначити чи показувати превю для зображень
 

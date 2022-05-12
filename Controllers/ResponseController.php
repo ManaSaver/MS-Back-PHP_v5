@@ -32,6 +32,7 @@ class ResponseController
         return json_decode($body, true);
     }
 
+
     public function httpStatus($int = 200)
     {
         $this->response['http_status'] = $int;

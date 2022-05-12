@@ -238,3 +238,27 @@ function searchItems($vars)
     $response->handleMySQLResult($mysql);
     $response->send();
 }
+
+function uploadFiles($vars)
+{
+    $mysql = new MySQLController($_GET['database']);
+    $response = new ResponseController();
+
+    $storageDir = 'storage/'; // todo path uuid
+
+    foreach($_FILES as $file) {
+        $uploadfile = $storageDir . basename($file['name']);
+        if (move_uploaded_file($file['tmp_name'], $uploadfile)) {
+            // echo "File is valid, and was successfully uploaded.\n";
+            $response->responseData(['f' => 'File is valid, and was successfully uploaded. ' . $uploadfile]);
+        } else {
+            // echo "Possible file upload attack!\n";
+            $response->responseData(['f' => 'Possible file upload attack! ' . $uploadfile]);
+        }
+    }
+
+
+
+   // $response->responseData(['vars' => $vars, '$_FILES' => $_FILES]);
+    $response->send();
+}
