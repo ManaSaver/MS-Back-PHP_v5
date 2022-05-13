@@ -22,7 +22,7 @@ class ResponseController
     {
         $content_type = $_SERVER['CONTENT_TYPE'] ?? '';
         if (stripos($content_type, 'application/json') === false) {
-            throw new Exception('Content-Type must be application/json');
+            throw new \Exception('Content-Type must be application/json');
         }
 
         // Read the input stream

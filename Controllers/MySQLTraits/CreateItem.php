@@ -11,7 +11,13 @@ trait CreateItem
         $date_utc->format('Y-m-d H:i:s');
 
         $array = [];
-        $array['uuid'] = $this->createUUID();
+
+        if(array_key_exists('uuid', $requestArray)) {
+            $array['uuid'] = $requestArray['uuid'];
+        } else {
+            $array['uuid'] = $this->createUUID();
+        }
+
         $array['created_at'] = $date_utc->format('Y-m-d H:i:s');
         $array['updated_at'] = $date_utc->format('Y-m-d H:i:s');
 

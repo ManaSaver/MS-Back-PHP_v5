@@ -244,16 +244,50 @@ function uploadFiles($vars)
     $mysql = new MySQLController($_GET['database']);
     $response = new ResponseController();
 
+    $parentUUID = json_decode($_POST['data'])->parent_uuid;
+    $lastOrderIndex = $mysql->getLastOrderIndex($parentUUID);
+
+
+    $response->responseData([
+        'vars' => $parentUUID,
+        'last_order_index' => $mysql->getLastOrderIndex($parentUUID),
+        'last_order_index_main' => $mysql->getLastOrderIndex(),
+        'FILES' => pathinfo($_FILES[0]['name'])['extension']
+    ]);
+
     $storageDir = 'storage/'; // todo path uuid
 
     foreach($_FILES as $file) {
-        $uploadfile = $storageDir . basename($file['name']);
-        if (move_uploaded_file($file['tmp_name'], $uploadfile)) {
+
+        $uuid = $mysql->createUUID();
+
+        if (!is_dir($storageDir . $parentUUID)) {
+            mkdir($storageDir . $parentUUID, 0777, true);
+        }
+
+        $pathInfo = pathinfo($file['name']);
+        $name = $pathInfo['filename'];
+        $extension = $pathInfo['extension'];
+        $lastOrderIndex = $lastOrderIndex + 1;
+
+        $mysql->createItem([
+            'uuid' => $uuid,
+            'parent_uuid' => $parentUUID,
+            'type' => 'file',
+            'order_index' => $lastOrderIndex,
+            'title' => $name,
+            'text' => '',
+            'tags' => [],
+            'src' => $storageDir . $parentUUID . '/' . $uuid . '.' . strtolower($extension),
+            'likes' => $file['size']
+        ]);
+
+        if (move_uploaded_file($file['tmp_name'], $storageDir . $parentUUID . '/' . $uuid . '.' . strtolower($extension))) {
             // echo "File is valid, and was successfully uploaded.\n";
-            $response->responseData(['f' => 'File is valid, and was successfully uploaded. ' . $uploadfile]);
+            //$response->responseData(['f' => 'File is valid, and was successfully uploaded. ' . $uploadfile]);
         } else {
             // echo "Possible file upload attack!\n";
-            $response->responseData(['f' => 'Possible file upload attack! ' . $uploadfile]);
+            //$response->responseData(['f' => 'Possible file upload attack! ' . $uploadfile]);
         }
     }
 
