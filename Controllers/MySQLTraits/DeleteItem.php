@@ -41,6 +41,13 @@ trait DeleteItem
             $this->createRevision($oldRecord, true);
         }
 
+        // TODO: якщо це файл, то стираю з диска:
+        foreach($rows as $item) {
+            if($item['type'] == 'file') {
+                unlink($item['src']);
+            }
+        }
+
         // Стираю цей допис:
         $sql = "DELETE FROM items WHERE uuid = '". $request['uuid'] . "'";
         $this->sql[] = $sql;

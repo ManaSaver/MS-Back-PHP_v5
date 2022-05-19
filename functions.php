@@ -255,7 +255,7 @@ function uploadFiles($vars)
         'FILES' => pathinfo($_FILES[0]['name'])['extension']
     ]);
 
-    $storageDir = 'storage/'; // todo path uuid
+    $storageDir = 'storage/' . $_GET['database'] . '/';
 
     foreach($_FILES as $file) {
 
@@ -283,7 +283,7 @@ function uploadFiles($vars)
         ]);
 
         if (move_uploaded_file($file['tmp_name'], $storageDir . $parentUUID . '/' . $uuid . '.' . strtolower($extension))) {
-            // echo "File is valid, and was successfully uploaded.\n";
+            // echo "File is valid, and was successfully uploaded.\n";+
             //$response->responseData(['f' => 'File is valid, and was successfully uploaded. ' . $uploadfile]);
         } else {
             // echo "Possible file upload attack!\n";
