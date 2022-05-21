@@ -49,6 +49,8 @@ class BackupController
             $this->destroySQLDump();
         }
 
+        $this->storageZip();
+
         // $this->sendToEmail();
     }
 
@@ -92,7 +94,7 @@ class BackupController
     {
         $zipFile = new \PhpZip\ZipFile();
 
-        try{
+        try {
             $zipFile
 
                 // dump info without password:
@@ -112,10 +114,29 @@ class BackupController
                 ->setCompressionLevel(\PhpZip\Constants\ZipCompressionLevel::MAXIMUM)
                 ->close(); // закрыть архив
         }
-        catch(\PhpZip\Exception\ZipException $e){
+        catch(\PhpZip\Exception\ZipException $e) {
             // обработка исключения
         }
-        finally{
+        finally {
+            $zipFile->close();
+        }
+    }
+
+    public function storageZip()
+    {
+        $zipFile = new \PhpZip\ZipFile();
+
+        try {
+            $zipFile
+                ->addDirRecursive('storage', 'storage', \PhpZip\Constants\ZipCompressionMethod::STORED)
+                ->setPassword(env('ZIP_PASSWORD')) // set password for all entries
+                ->saveAsFile('storage.zip')
+                ->close(); // закрыть архив
+        }
+        catch(\PhpZip\Exception\ZipException $e) {
+            // обработка исключения
+        }
+        finally {
             $zipFile->close();
         }
     }
