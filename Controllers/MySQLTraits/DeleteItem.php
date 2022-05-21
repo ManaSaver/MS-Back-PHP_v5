@@ -44,7 +44,7 @@ trait DeleteItem
         // TODO: якщо це файл, то стираю з диска:
         foreach($rows as $item) {
             if($item['type'] == 'file') {
-                unlink($item['src']);
+                @unlink($item['src']);
             }
         }
 
