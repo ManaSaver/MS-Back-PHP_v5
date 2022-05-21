@@ -21,6 +21,7 @@ class BackupController
     private static $instance;
 
     public $mysql = null;
+    public $databaseList = [];
     public $dumpDescription = '';
 
     public static function makeBackup($database = null)
@@ -37,12 +38,17 @@ class BackupController
         $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
         $dotenv->load();
 
-        $this->mysql = new MySQLController($database);
+        $this->databaseList = explode(',', env('DBS_LIST'));
 
-        $this->sqlDump();
-        $this->makedumpDescription();
-        $this->sqlZip();
-        $this->sendToTelegram();
+        foreach($this->databaseList as $dbName) {
+            $this->mysql = new MySQLController($dbName);
+            $this->sqlDump();
+            $this->makedumpDescription();
+            $this->sqlZip();
+            $this->sendToTelegram();
+            $this->destroySQLDump();
+        }
+
         // $this->sendToEmail();
     }
 
@@ -142,4 +148,10 @@ class BackupController
     {
 
     }
+
+    public function destroySQLDump()
+    {
+        unlink($this->mysql->database . '.sql');
+    }
+
 }
