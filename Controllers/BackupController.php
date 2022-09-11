@@ -146,8 +146,18 @@ class BackupController
         $telegram = new TelegramBotNotifier(env('TELEGRAM_BOT_TOKEN'));
         $telegram->addRecipient(env('TELEGRAM_CHAT_ID'));
 
+        if (DIRECTORY_SEPARATOR === '/') {
+            // unix, linux, mac
+            $path = dirname(__DIR__, 1) . '/' . $this->mysql->database. '.zip';
+        }
 
-        $telegram->addFile(realpath(dirname(__DIR__, 1) . '\\' . $this->mysql->database. '.zip'), function() {
+        if (DIRECTORY_SEPARATOR === '\\') {
+            // windows
+            $path = dirname(__DIR__, 1) . '\\' . $this->mysql->database. '.zip';
+        }
+
+
+        $telegram->addFile(realpath($path), function() {
             $telegram = new TelegramBotNotifier();
             $telegram
                 ->text('📦 Резервна копія:')->br()
