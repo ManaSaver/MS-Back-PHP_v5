@@ -62,7 +62,7 @@ class BackupController
         try {
             $dump = new Dump;
             $dump
-                ->file(dirname(__DIR__, 1) . '\\' . $this->mysql->database . '.sql')
+                ->file(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . $this->mysql->database . '.sql')
                 ->dsn('mysql:dbname=' . $this->mysql->database . ';host=' . $this->mysql->host)
                 ->user($this->mysql->username)
                 ->pass($this->mysql->password)
@@ -105,7 +105,7 @@ class BackupController
 
                 // dump with password:
                 ->addFile(
-                    dirname(__DIR__, 1) . '\\' . $this->mysql->database . '.sql',
+                    dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . $this->mysql->database . '.sql',
                     $this->mysql->database . '.sql'
                 )
                 ->setPasswordEntry($this->mysql->database . '.sql', env('ZIP_PASSWORD'))
@@ -157,7 +157,7 @@ class BackupController
         }
 
 
-        $telegram->addFile(realpath($path), function() {
+        $telegram->addFile(realpath(dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . $this->mysql->database. '.zip'), function() {
             $telegram = new TelegramBotNotifier();
             $telegram
                 ->text('📦 Резервна копія:')->br()
