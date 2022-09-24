@@ -81,10 +81,10 @@ class BackupController
             "Time Zone: " . date_default_timezone_get() . PHP_EOL .
                 PHP_EOL .
             "Database: " . $this->mysql->database . PHP_EOL .
-            "Records: " . $this->mysql->itemsCount() . PHP_EOL .
-            "Revisions: " . $this->mysql->revisionsCount() . PHP_EOL .
-            "Last update: " . $this->mysql->lastItemsUpdate() . PHP_EOL .
-                PHP_EOL .
+            //"Records: " . $this->mysql->itemsCount() . PHP_EOL .
+            //"Revisions: " . $this->mysql->revisionsCount() . PHP_EOL .
+            //"Last update: " . $this->mysql->lastItemsUpdate() . PHP_EOL .
+            //    PHP_EOL .
             "PC_NAME: " . env('PC_NAME') . PHP_EOL;
             "VERSION: " . env('VERSION') . PHP_EOL;
     }
