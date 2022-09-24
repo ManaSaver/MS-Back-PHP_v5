@@ -45,7 +45,9 @@ class BackupController
             $this->sqlDump();
             $this->makedumpDescription();
             $this->sqlZip();
+            $this->sendSeparatorToTelegram();
             $this->sendToTelegram();
+            $this->sendSeparatorToTelegram();
             $this->destroySQLDump();
         }
 
