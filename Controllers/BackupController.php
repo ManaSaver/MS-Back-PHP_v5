@@ -40,18 +40,21 @@ class BackupController
 
         $this->databaseList = explode(',', env('DBS_LIST'));
 
+        $this->sendSeparatorToTelegram();
+        
         foreach($this->databaseList as $dbName) {
             $this->mysql = new MySQLController($dbName);
             $this->sqlDump();
             $this->makedumpDescription();
             $this->sqlZip();
-            $this->sendSeparatorToTelegram();
             $this->sendToTelegram();
-            $this->sendSeparatorToTelegram();
             $this->destroySQLDump();
         }
 
+        $this->sendSeparatorToTelegram();
+        
         $this->storageZip();
+        
 
         // $this->sendToEmail();
     }
