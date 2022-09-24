@@ -141,6 +141,15 @@ class BackupController
         }
     }
 
+    public function sendSeparatorToTelegram()
+    {
+        $telegram = new TelegramBotNotifier(env('TELEGRAM_BOT_TOKEN'));
+        $telegram->addRecipient(env('TELEGRAM_CHAT_ID'));  
+        
+        $telegram->text('--- // ---')->br();
+        $telegram->sendMessage();
+    }
+    
     public function sendToTelegram()
     {
         $telegram = new TelegramBotNotifier(env('TELEGRAM_BOT_TOKEN'));
